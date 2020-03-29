@@ -70,6 +70,7 @@ namespace Factory
             grbEntery.Visible = false;
             grbListItems.Visible = false;
             openToolStripMenuItem.Checked = false;
+            currentoperation = DataBaseOperation.none;
         }//btnCancel_Click
         bool check_data_entery_for_product() {
             bool result = false;
@@ -102,8 +103,14 @@ namespace Factory
                             clear_entery();
                         }//if one record is added to data base
                     }//if New record is being insrted
-                    else if (currentoperation == DataBaseOperation.Update) {
-
+                    else if (currentoperation == DataBaseOperation.Update) {                        
+                        if (update_product_in_DataBase())
+                        {
+                            strMessage = "One record is updated in database";
+                            Load_List_of_Product();
+                            MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            clear_entery();
+                        }//if one record is added to data base
                     }//if an edit operation is in progress
                 }//if numeric
                 else {
@@ -175,5 +182,52 @@ namespace Factory
             }//catch
         }//Load_List_of_Product
         //---------------------------------------------------------------------
+        private void EditProductToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Load_List_of_Product();
+            currentoperation = DataBaseOperation.Update;
+            grbEntery.Visible = true;
+            grbListItems.Visible = true;
+        }//EditProductToolStripMenuItem_Click
+        //---------------------------------------------------------------------
+        private void dgvProduct_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtProductID.Text = dgvProduct.CurrentRow.Cells[0].Value.ToString();
+            txtProductName.Text = dgvProduct.CurrentRow.Cells[1].Value.ToString();
+            txtProductWeight.Text = dgvProduct.CurrentRow.Cells[2].Value.ToString();
+            txtProductColor.Text = dgvProduct.CurrentRow.Cells[3].Value.ToString();
+        }//dgvProduct_CellClick
+         //---------------------------------------------------------------------
+        bool update_product_in_DataBase()
+        {
+            bool result = false;
+            try
+            {
+                string pid = txtProductID.Text.Trim();
+                string pn = txtProductName.Text.Trim();
+                string pw = txtProductWeight.Text.Trim();
+                string pc = txtProductColor.Text.Trim();
+                string srtSQL = string.Format("Update tbl_product set ProductName='{0}',ProductWeight={1},ProductColor='{2}'  where ProductID={3}", pn, pw, pc,pid);
+                SqlConnection sqlcon = new SqlConnection(strConnection);
+                sqlcon.Open();
+                SqlCommand sqlcmd = new SqlCommand(srtSQL, sqlcon);
+                int r = sqlcmd.ExecuteNonQuery();
+                sqlcon.Close();
+                if (r == 1)
+                {
+                    result = true;
+                }//if one record is added   
+                
+            }//try
+            catch (Exception ex)
+            {
+                string strTitle, strMessage;
+                strTitle = Properties.Resources.ProgramTitle;
+                strMessage = "An exception has occured please contact the system administrator and inform exception No. 2 ";
+                strMessage += "\nAnd following message \n " + ex.Message;
+                MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }//catch
+            return result;
+        }//save_product_to_DataBase
     }//Form
 }//Factory
