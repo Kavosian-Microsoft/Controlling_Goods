@@ -92,26 +92,34 @@ namespace Factory
             if (check_data_entery_for_product()) {
                 if (check_Weight_numeric())
                 {
-                    ///Code to save data
-                    if (currentoperation == DataBaseOperation.Create)
-                    {
-                        if (save_product_to_DataBase())
+                    if (check_existanse()) {
+                        strMessage = "The record already exists";                        
+                        MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }//if record exists
+                    else {
+                        ///Code to save data
+                        if (currentoperation == DataBaseOperation.Create)
                         {
-                            strMessage = "One record is added to database";
-                            Load_List_of_Product();
-                            MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            clear_entery();
-                        }//if one record is added to data base
-                    }//if New record is being insrted
-                    else if (currentoperation == DataBaseOperation.Update) {                        
-                        if (update_product_in_DataBase())
+
+                            if (save_product_to_DataBase())
+                            {
+                                strMessage = "One record is added to database";
+                                Load_List_of_Product();
+                                MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                clear_entery();
+                            }//if one record is added to data base
+                        }//if New record is being insrted
+                        else if (currentoperation == DataBaseOperation.Update)
                         {
-                            strMessage = "One record is updated in database";
-                            Load_List_of_Product();
-                            MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            clear_entery();
-                        }//if one record is added to data base
-                    }//if an edit operation is in progress
+                            if (update_product_in_DataBase())
+                            {
+                                strMessage = "One record is updated in database";
+                                Load_List_of_Product();
+                                MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                clear_entery();
+                            }//if one record is added to data base
+                        }//if an edit operation is in progress
+                    }//else if record is unique
                 }//if numeric
                 else {
                     strMessage = "Please check weigth, numeric value is required";
@@ -229,5 +237,31 @@ namespace Factory
             }//catch
             return result;
         }//save_product_to_DataBase
+        private bool check_existanse() {
+            bool result = false;
+            try
+            {
+                string strsql = string.Format("select count(*) from tbl_product where productName='{0}' and productweight={1} and productColor='{2}'",txtProductName.Text.Trim(),txtProductWeight.Text.Trim(),txtProductColor.Text.Trim());
+                SqlConnection sqlcon = new SqlConnection(strConnection);
+                sqlcon.Open();
+                SqlCommand sqlcmd = new SqlCommand(strsql, sqlcon);
+                int r = (int)sqlcmd.ExecuteScalar();
+                sqlcon.Close();
+                if (r > 0){
+                    result = true;
+                }//if record already exists
+                
+            }//try
+            catch (Exception ex)
+            {
+                string strTitle, strMessage;
+                strTitle = Properties.Resources.ProgramTitle;
+                strMessage = "An exception has occured please contact the system administrator and inform exception No. 3 ";
+                strMessage += "\nAnd following message \n " + ex.Message;
+                MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }//catch
+
+            return result;
+        }//check_existanse
     }//Form
 }//Factory
