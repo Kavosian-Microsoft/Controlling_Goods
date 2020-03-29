@@ -40,6 +40,8 @@ namespace Factory
             grbEntery.Visible = true;
             grbListItems.Visible = true;
             openToolStripMenuItem.Checked = true;
+            btnDelete.Visible = false;
+            btnSave.Visible = true;
             Load_List_of_Product();
         }//newToolStripMenuItem_Click
         //---------------------------------------------------------------------
@@ -70,6 +72,8 @@ namespace Factory
             grbEntery.Visible = false;
             grbListItems.Visible = false;
             openToolStripMenuItem.Checked = false;
+            btnSave.Visible = true;
+            btnDelete.Visible = false;
             currentoperation = DataBaseOperation.none;
         }//btnCancel_Click
         bool check_data_entery_for_product() {
@@ -196,6 +200,8 @@ namespace Factory
             currentoperation = DataBaseOperation.Update;
             grbEntery.Visible = true;
             grbListItems.Visible = true;
+            btnSave.Visible = true;
+            btnDelete.Visible = false;
         }//EditProductToolStripMenuItem_Click
         //---------------------------------------------------------------------
         private void dgvProduct_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -263,5 +269,71 @@ namespace Factory
 
             return result;
         }//check_existanse
+
+        private void RemoveProductToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnSave.Visible = false;
+            btnDelete.Visible = true;
+            Load_List_of_Product();
+            currentoperation = DataBaseOperation.Delete;
+            grbEntery.Visible = true;
+            grbListItems.Visible = true;
+        }//RemoveProductToolStripMenuItem_Click
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            string strTitle, strMessage;
+            strTitle = Properties.Resources.ProgramTitle;
+            strMessage = "";
+            if (check_data_entery_for_product())
+            {
+                DialogResult res;
+                strMessage = "Are you sure for removing the selected record";
+                res = MessageBox.Show(strMessage, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res == DialogResult.Yes) {
+                    if (remove_record(int.Parse(txtProductID.Text.Trim())))
+                    {
+                        Load_List_of_Product();
+                        clear_entery();
+                        strMessage = "One record is removed";
+                        MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }//if it is OK to remove record 
+                    else {
+                        strMessage = "The record is not removed, check again please";
+                        MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }//else if removing was not completed 
+                }//if yes is pressesd                
+            }//if All data fields are filled in 
+            else
+            {
+                strMessage = "Please select a record";
+                MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }//else if there is fata missing
+        }//btnDelete_Click
+        private bool remove_record(int PID) {
+            bool result = false;
+            string strsql = string.Format("Delete from tbl_product where ProductID={0}",PID);
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(strConnection);
+                sqlcon.Open();
+                SqlCommand sqlcmd = new SqlCommand(strsql, sqlcon);
+                int r = sqlcmd.ExecuteNonQuery();
+                if (r > 0)
+                {
+                    result = true;
+                }//if removed 
+                sqlcon.Close();
+            }//try
+            catch (Exception ex)
+            {
+                string strTitle, strMessage;
+                strTitle = Properties.Resources.ProgramTitle;
+                strMessage = "An exception has occured please contact the system administrator and inform exception No. 4 ";
+                strMessage += "\nAnd following message \n " + ex.Message;
+                MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }//catch
+            return result;
+        }//remove_record
     }//Form
 }//Factory

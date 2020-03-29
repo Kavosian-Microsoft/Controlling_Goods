@@ -36,7 +36,7 @@
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.EditProductToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.printPreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.RemoveProductToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,6 +70,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtProductID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.grbListItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
@@ -97,7 +98,7 @@
             this.toolStripSeparator,
             this.toolStripSeparator1,
             this.EditProductToolStripMenuItem,
-            this.printPreviewToolStripMenuItem,
+            this.RemoveProductToolStripMenuItem,
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -142,13 +143,13 @@
             this.EditProductToolStripMenuItem.Text = "&Edit Products";
             this.EditProductToolStripMenuItem.Click += new System.EventHandler(this.EditProductToolStripMenuItem_Click);
             // 
-            // printPreviewToolStripMenuItem
+            // RemoveProductToolStripMenuItem
             // 
-            this.printPreviewToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("printPreviewToolStripMenuItem.Image")));
-            this.printPreviewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.printPreviewToolStripMenuItem.Name = "printPreviewToolStripMenuItem";
-            this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.printPreviewToolStripMenuItem.Text = "Print Pre&view";
+            this.RemoveProductToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.RemoveProductToolStripMenuItem.Name = "RemoveProductToolStripMenuItem";
+            this.RemoveProductToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.RemoveProductToolStripMenuItem.Text = "&Remove Product";
+            this.RemoveProductToolStripMenuItem.Click += new System.EventHandler(this.RemoveProductToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -319,6 +320,7 @@
             // 
             // grbEntery
             // 
+            this.grbEntery.Controls.Add(this.btnDelete);
             this.grbEntery.Controls.Add(this.btnCancel);
             this.grbEntery.Controls.Add(this.btnSave);
             this.grbEntery.Controls.Add(this.txtProductColor);
@@ -339,7 +341,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.BackColor = System.Drawing.Color.Red;
+            this.btnCancel.BackColor = System.Drawing.Color.Gold;
             this.btnCancel.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.btnCancel.Location = new System.Drawing.Point(548, 112);
             this.btnCancel.Name = "btnCancel";
@@ -427,6 +429,19 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Product ID:";
             // 
+            // btnDelete
+            // 
+            this.btnDelete.BackColor = System.Drawing.Color.Red;
+            this.btnDelete.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.btnDelete.Location = new System.Drawing.Point(548, 34);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(192, 74);
+            this.btnDelete.TabIndex = 10;
+            this.btnDelete.Text = "Remove";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Visible = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
             // frmFactory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -462,7 +477,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem EditProductToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem printPreviewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem RemoveProductToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
@@ -496,6 +511,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.DataGridView dgvProduct;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
 
