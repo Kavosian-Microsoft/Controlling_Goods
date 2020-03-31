@@ -14,7 +14,7 @@ namespace Factory
             Update=3,
             Delete=4
         }//DataBaseOperation
-        string strConnection = "";
+        public string strConnection = "";
         DataBaseOperation currentoperation = DataBaseOperation.none;
         //---------------------------------------------------------------------
         public frmFactory()
@@ -32,6 +32,18 @@ namespace Factory
             this.Text = Properties.Resources.ProgramTitle;
             strConnection = "Data Source=KAVOSIAN-PC10\\SQL2K14;Initial Catalog=Factory_DataBase;Integrated Security=True";
             currentoperation = DataBaseOperation.none;
+            LoginForm login = new LoginForm();
+            login.strcon = strConnection;
+            login.ShowDialog();
+            login.Focus();
+            if (login.LoggegIN) {
+                string strtitle = "";
+                strtitle = Properties.Resources.ProgramTitle + "  UserName:" + login.username + "  User Type :" + login.userType + "  Loging Time:" + login.loginTime;
+                this.Text = strtitle;
+            }//if user is logged in
+            else {
+                this.Close();
+            }//else if login is unseccessful
         }//frmFactory_Load
         //---------------------------------------------------------------------
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
