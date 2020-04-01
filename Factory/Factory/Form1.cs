@@ -213,6 +213,7 @@ namespace Factory
         //---------------------------------------------------------------------
         private void EditProductToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.tbl_ColorTableAdapter.Fill(factory_DataBaseDataSet.tbl_Color);
             Load_List_of_Product();
             currentoperation = DataBaseOperation.Update;
             grbEntery.Visible = true;
@@ -260,7 +261,7 @@ namespace Factory
                 MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }//catch
             return result;
-        }//save_product_to_DataBase
+        }//update_product_in_DataBase
         private bool check_existanse() {
             bool result = false;
             try
@@ -357,6 +358,7 @@ namespace Factory
         private void productColorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FRMProductColor frm = new FRMProductColor();
+            frm.strConnection = strConnection;
             frm.ShowDialog();
         }//productColorsToolStripMenuItem_Click
     }//Form
