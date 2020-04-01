@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmFactory));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,9 +61,9 @@
             this.grbListItems = new System.Windows.Forms.GroupBox();
             this.dgvProduct = new System.Windows.Forms.DataGridView();
             this.grbEntery = new System.Windows.Forms.GroupBox();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.txtProductColor = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtProductWeight = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -70,11 +71,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtProductID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnDelete = new System.Windows.Forms.Button();
+            this.productColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.systemUsersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbProductColor = new System.Windows.Forms.ComboBox();
+            this.factory_DataBaseDataSet = new Factory.Factory_DataBaseDataSet();
+            this.tblColorBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tbl_ColorTableAdapter = new Factory.Factory_DataBaseDataSetTableAdapters.tbl_ColorTableAdapter();
             this.menuStrip1.SuspendLayout();
             this.grbListItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
             this.grbEntery.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.factory_DataBaseDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblColorBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -247,13 +255,16 @@
             // customizeToolStripMenuItem
             // 
             this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.customizeToolStripMenuItem.Text = "&Customize";
             // 
             // optionsToolStripMenuItem
             // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.productColorsToolStripMenuItem,
+            this.systemUsersToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // helpToolStripMenuItem
@@ -271,30 +282,30 @@
             // contentsToolStripMenuItem
             // 
             this.contentsToolStripMenuItem.Name = "contentsToolStripMenuItem";
-            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.contentsToolStripMenuItem.Text = "&Contents";
             // 
             // indexToolStripMenuItem
             // 
             this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.indexToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.indexToolStripMenuItem.Text = "&Index";
             // 
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.searchToolStripMenuItem.Text = "&Search";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(119, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
             // grbListItems
@@ -320,10 +331,10 @@
             // 
             // grbEntery
             // 
+            this.grbEntery.Controls.Add(this.cmbProductColor);
             this.grbEntery.Controls.Add(this.btnDelete);
             this.grbEntery.Controls.Add(this.btnCancel);
             this.grbEntery.Controls.Add(this.btnSave);
-            this.grbEntery.Controls.Add(this.txtProductColor);
             this.grbEntery.Controls.Add(this.label4);
             this.grbEntery.Controls.Add(this.txtProductWeight);
             this.grbEntery.Controls.Add(this.label3);
@@ -338,6 +349,19 @@
             this.grbEntery.TabStop = false;
             this.grbEntery.Text = "Product Data";
             this.grbEntery.Visible = false;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.BackColor = System.Drawing.Color.Red;
+            this.btnDelete.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.btnDelete.Location = new System.Drawing.Point(548, 34);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(192, 74);
+            this.btnDelete.TabIndex = 10;
+            this.btnDelete.Text = "Remove";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Visible = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnCancel
             // 
@@ -362,13 +386,6 @@
             this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // txtProductColor
-            // 
-            this.txtProductColor.Location = new System.Drawing.Point(173, 155);
-            this.txtProductColor.Name = "txtProductColor";
-            this.txtProductColor.Size = new System.Drawing.Size(151, 31);
-            this.txtProductColor.TabIndex = 7;
             // 
             // label4
             // 
@@ -429,18 +446,43 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Product ID:";
             // 
-            // btnDelete
+            // productColorsToolStripMenuItem
             // 
-            this.btnDelete.BackColor = System.Drawing.Color.Red;
-            this.btnDelete.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnDelete.Location = new System.Drawing.Point(548, 34);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(192, 74);
-            this.btnDelete.TabIndex = 10;
-            this.btnDelete.Text = "Remove";
-            this.btnDelete.UseVisualStyleBackColor = false;
-            this.btnDelete.Visible = false;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.productColorsToolStripMenuItem.Name = "productColorsToolStripMenuItem";
+            this.productColorsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.productColorsToolStripMenuItem.Text = "Product &Colors";
+            this.productColorsToolStripMenuItem.Click += new System.EventHandler(this.productColorsToolStripMenuItem_Click);
+            // 
+            // systemUsersToolStripMenuItem
+            // 
+            this.systemUsersToolStripMenuItem.Name = "systemUsersToolStripMenuItem";
+            this.systemUsersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.systemUsersToolStripMenuItem.Text = "System &Users";
+            // 
+            // cmbProductColor
+            // 
+            this.cmbProductColor.DataSource = this.tblColorBindingSource;
+            this.cmbProductColor.DisplayMember = "ColorName";
+            this.cmbProductColor.FormattingEnabled = true;
+            this.cmbProductColor.Location = new System.Drawing.Point(173, 153);
+            this.cmbProductColor.Name = "cmbProductColor";
+            this.cmbProductColor.Size = new System.Drawing.Size(152, 33);
+            this.cmbProductColor.TabIndex = 11;
+            this.cmbProductColor.ValueMember = "ColorID";
+            // 
+            // factory_DataBaseDataSet
+            // 
+            this.factory_DataBaseDataSet.DataSetName = "Factory_DataBaseDataSet";
+            this.factory_DataBaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // tblColorBindingSource
+            // 
+            this.tblColorBindingSource.DataMember = "tbl_Color";
+            this.tblColorBindingSource.DataSource = this.factory_DataBaseDataSet;
+            // 
+            // tbl_ColorTableAdapter
+            // 
+            this.tbl_ColorTableAdapter.ClearBeforeFill = true;
             // 
             // frmFactory
             // 
@@ -463,6 +505,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).EndInit();
             this.grbEntery.ResumeLayout(false);
             this.grbEntery.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.factory_DataBaseDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblColorBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -500,7 +544,6 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.GroupBox grbListItems;
         private System.Windows.Forms.GroupBox grbEntery;
-        private System.Windows.Forms.TextBox txtProductColor;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtProductWeight;
         private System.Windows.Forms.Label label3;
@@ -512,6 +555,12 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.DataGridView dgvProduct;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.ToolStripMenuItem productColorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem systemUsersToolStripMenuItem;
+        private System.Windows.Forms.ComboBox cmbProductColor;
+        private Factory_DataBaseDataSet factory_DataBaseDataSet;
+        private System.Windows.Forms.BindingSource tblColorBindingSource;
+        private Factory_DataBaseDataSetTableAdapters.tbl_ColorTableAdapter tbl_ColorTableAdapter;
     }
 }
 

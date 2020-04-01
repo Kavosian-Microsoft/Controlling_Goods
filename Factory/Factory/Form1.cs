@@ -28,7 +28,9 @@ namespace Factory
         }//exitToolStripMenuItem_Click
         //---------------------------------------------------------------------
         private void frmFactory_Load(object sender, EventArgs e)
-        {            
+        {
+            // TODO: This line of code loads data into the 'factory_DataBaseDataSet.tbl_Color' table. You can move, or remove it, as needed.
+            this.tbl_ColorTableAdapter.Fill(this.factory_DataBaseDataSet.tbl_Color);
             this.Text = Properties.Resources.ProgramTitle;
             strConnection = "Data Source=KAVOSIAN-PC10\\SQL2K14;Initial Catalog=Factory_DataBase;Integrated Security=True";
             currentoperation = DataBaseOperation.none;
@@ -75,7 +77,8 @@ namespace Factory
             txtProductID.Clear();
             txtProductName.Clear();
             txtProductWeight.Clear();
-            txtProductColor.Clear();
+            //txtProductColor.Clear();
+            cmbProductColor.Text = "";
         }//clear_entery
         //---------------------------------------------------------------------
         private void btnCancel_Click(object sender, EventArgs e)
@@ -92,7 +95,7 @@ namespace Factory
             bool result = false;
             if (txtProductName.Text.Length > 0) {
                 if (txtProductWeight.Text.Length > 0) {
-                    if (txtProductColor.Text.Length > 0) {
+                    if (cmbProductColor.Text.Length > 0) {
                         result = true;
                     }//if color is entered
                 }//if weight is entered 
@@ -163,8 +166,9 @@ namespace Factory
             {                
                 string pn = txtProductName.Text.Trim();
                 string pw = txtProductWeight.Text.Trim();
-                string pc = txtProductColor.Text.Trim();
-                string srtSQL = string.Format("Insert into tbl_product (ProductName,ProductWeight,ProductColor) values ('{0}','{1}','{2}')",pn,pw,pc);
+                //string pc = txtProductColor.Text.Trim();
+                int pc = int.Parse(cmbProductColor.SelectedValue.ToString());
+                string srtSQL = string.Format("Insert into tbl_product (ProductName,ProductWeight,ProductColor) values ('{0}','{1}',{2})",pn,pw,pc);
                 SqlConnection sqlcon = new SqlConnection(strConnection);
                 sqlcon.Open();
                 SqlCommand sqlcmd = new SqlCommand(srtSQL, sqlcon);
@@ -188,7 +192,8 @@ namespace Factory
         private void Load_List_of_Product() {
             try
             {
-                string strsql = "Select * from tbl_product";
+                //string strsql = "Select * from tbl_product";
+                string strsql = "select * from tbl_product inner join tbl_Color on tbl_product.ProductColor=tbl_Color.ColorID";
                 SqlConnection sqlCon = new SqlConnection(strConnection);
                 sqlCon.Open();
                 SqlDataAdapter da = new SqlDataAdapter(strsql, sqlCon);
@@ -221,7 +226,8 @@ namespace Factory
             txtProductID.Text = dgvProduct.CurrentRow.Cells[0].Value.ToString();
             txtProductName.Text = dgvProduct.CurrentRow.Cells[1].Value.ToString();
             txtProductWeight.Text = dgvProduct.CurrentRow.Cells[2].Value.ToString();
-            txtProductColor.Text = dgvProduct.CurrentRow.Cells[3].Value.ToString();
+            //txtProductColor.Text = dgvProduct.CurrentRow.Cells[3].Value.ToString();
+            cmbProductColor.SelectedValue= dgvProduct.CurrentRow.Cells[3].Value.ToString();
         }//dgvProduct_CellClick
          //---------------------------------------------------------------------
         bool update_product_in_DataBase()
@@ -232,8 +238,8 @@ namespace Factory
                 string pid = txtProductID.Text.Trim();
                 string pn = txtProductName.Text.Trim();
                 string pw = txtProductWeight.Text.Trim();
-                string pc = txtProductColor.Text.Trim();
-                string srtSQL = string.Format("Update tbl_product set ProductName='{0}',ProductWeight={1},ProductColor='{2}'  where ProductID={3}", pn, pw, pc,pid);
+                int pc = int.Parse(cmbProductColor.SelectedValue.ToString());
+                string srtSQL = string.Format("Update tbl_product set ProductName='{0}',ProductWeight={1},ProductColor={2}  where ProductID={3}", pn, pw, pc,pid);
                 SqlConnection sqlcon = new SqlConnection(strConnection);
                 sqlcon.Open();
                 SqlCommand sqlcmd = new SqlCommand(srtSQL, sqlcon);
@@ -259,7 +265,7 @@ namespace Factory
             bool result = false;
             try
             {
-                string strsql = string.Format("select count(*) from tbl_product where productName='{0}' and productweight={1} and productColor='{2}'",txtProductName.Text.Trim(),txtProductWeight.Text.Trim(),txtProductColor.Text.Trim());
+                string strsql = string.Format("select count(*) from tbl_product where productName='{0}' and productweight={1} and productColor={2}",txtProductName.Text.Trim(),txtProductWeight.Text.Trim(),int.Parse(cmbProductColor.SelectedValue.ToString()));
                 SqlConnection sqlcon = new SqlConnection(strConnection);
                 sqlcon.Open();
                 SqlCommand sqlcmd = new SqlCommand(strsql, sqlcon);
@@ -347,5 +353,10 @@ namespace Factory
             }//catch
             return result;
         }//remove_record
+
+        private void productColorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }//productColorsToolStripMenuItem_Click
     }//Form
 }//Factory
