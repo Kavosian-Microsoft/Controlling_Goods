@@ -356,7 +356,8 @@ namespace Factory
 
         private void productColorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FRMProductColor frm = new FRMProductColor();
+            frm.ShowDialog();
         }//productColorsToolStripMenuItem_Click
     }//Form
 }//Factory
