@@ -52,6 +52,8 @@
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.productColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.systemUsersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,6 +63,9 @@
             this.grbListItems = new System.Windows.Forms.GroupBox();
             this.dgvProduct = new System.Windows.Forms.DataGridView();
             this.grbEntery = new System.Windows.Forms.GroupBox();
+            this.cmbProductColor = new System.Windows.Forms.ComboBox();
+            this.tblColorBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.factory_DataBaseDataSet = new Factory.Factory_DataBaseDataSet();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -71,18 +76,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtProductID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.productColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.systemUsersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmbProductColor = new System.Windows.Forms.ComboBox();
-            this.factory_DataBaseDataSet = new Factory.Factory_DataBaseDataSet();
-            this.tblColorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tbl_ColorTableAdapter = new Factory.Factory_DataBaseDataSetTableAdapters.tbl_ColorTableAdapter();
             this.menuStrip1.SuspendLayout();
             this.grbListItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
             this.grbEntery.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.factory_DataBaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblColorBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.factory_DataBaseDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -267,6 +267,20 @@
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
+            // productColorsToolStripMenuItem
+            // 
+            this.productColorsToolStripMenuItem.Name = "productColorsToolStripMenuItem";
+            this.productColorsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.productColorsToolStripMenuItem.Text = "Product &Colors";
+            this.productColorsToolStripMenuItem.Click += new System.EventHandler(this.productColorsToolStripMenuItem_Click);
+            // 
+            // systemUsersToolStripMenuItem
+            // 
+            this.systemUsersToolStripMenuItem.Name = "systemUsersToolStripMenuItem";
+            this.systemUsersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.systemUsersToolStripMenuItem.Text = "System &Users";
+            this.systemUsersToolStripMenuItem.Click += new System.EventHandler(this.systemUsersToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -282,30 +296,30 @@
             // contentsToolStripMenuItem
             // 
             this.contentsToolStripMenuItem.Name = "contentsToolStripMenuItem";
-            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.contentsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.contentsToolStripMenuItem.Text = "&Contents";
             // 
             // indexToolStripMenuItem
             // 
             this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.indexToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.indexToolStripMenuItem.Text = "&Index";
             // 
             // searchToolStripMenuItem
             // 
             this.searchToolStripMenuItem.Name = "searchToolStripMenuItem";
-            this.searchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.searchToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.searchToolStripMenuItem.Text = "&Search";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(119, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
             // grbListItems
@@ -349,6 +363,27 @@
             this.grbEntery.TabStop = false;
             this.grbEntery.Text = "Product Data";
             this.grbEntery.Visible = false;
+            // 
+            // cmbProductColor
+            // 
+            this.cmbProductColor.DataSource = this.tblColorBindingSource;
+            this.cmbProductColor.DisplayMember = "ColorName";
+            this.cmbProductColor.FormattingEnabled = true;
+            this.cmbProductColor.Location = new System.Drawing.Point(173, 153);
+            this.cmbProductColor.Name = "cmbProductColor";
+            this.cmbProductColor.Size = new System.Drawing.Size(152, 33);
+            this.cmbProductColor.TabIndex = 11;
+            this.cmbProductColor.ValueMember = "ColorID";
+            // 
+            // tblColorBindingSource
+            // 
+            this.tblColorBindingSource.DataMember = "tbl_Color";
+            this.tblColorBindingSource.DataSource = this.factory_DataBaseDataSet;
+            // 
+            // factory_DataBaseDataSet
+            // 
+            this.factory_DataBaseDataSet.DataSetName = "Factory_DataBaseDataSet";
+            this.factory_DataBaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // btnDelete
             // 
@@ -446,40 +481,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Product ID:";
             // 
-            // productColorsToolStripMenuItem
-            // 
-            this.productColorsToolStripMenuItem.Name = "productColorsToolStripMenuItem";
-            this.productColorsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.productColorsToolStripMenuItem.Text = "Product &Colors";
-            this.productColorsToolStripMenuItem.Click += new System.EventHandler(this.productColorsToolStripMenuItem_Click);
-            // 
-            // systemUsersToolStripMenuItem
-            // 
-            this.systemUsersToolStripMenuItem.Name = "systemUsersToolStripMenuItem";
-            this.systemUsersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.systemUsersToolStripMenuItem.Text = "System &Users";
-            // 
-            // cmbProductColor
-            // 
-            this.cmbProductColor.DataSource = this.tblColorBindingSource;
-            this.cmbProductColor.DisplayMember = "ColorName";
-            this.cmbProductColor.FormattingEnabled = true;
-            this.cmbProductColor.Location = new System.Drawing.Point(173, 153);
-            this.cmbProductColor.Name = "cmbProductColor";
-            this.cmbProductColor.Size = new System.Drawing.Size(152, 33);
-            this.cmbProductColor.TabIndex = 11;
-            this.cmbProductColor.ValueMember = "ColorID";
-            // 
-            // factory_DataBaseDataSet
-            // 
-            this.factory_DataBaseDataSet.DataSetName = "Factory_DataBaseDataSet";
-            this.factory_DataBaseDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // tblColorBindingSource
-            // 
-            this.tblColorBindingSource.DataMember = "tbl_Color";
-            this.tblColorBindingSource.DataSource = this.factory_DataBaseDataSet;
-            // 
             // tbl_ColorTableAdapter
             // 
             this.tbl_ColorTableAdapter.ClearBeforeFill = true;
@@ -505,8 +506,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).EndInit();
             this.grbEntery.ResumeLayout(false);
             this.grbEntery.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.factory_DataBaseDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblColorBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.factory_DataBaseDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

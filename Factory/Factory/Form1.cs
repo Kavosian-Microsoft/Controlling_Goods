@@ -361,5 +361,10 @@ namespace Factory
             frm.strConnection = strConnection;
             frm.ShowDialog();
         }//productColorsToolStripMenuItem_Click
+
+        private void systemUsersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }//systemUsersToolStripMenuItem_Click
     }//Form
 }//Factory
