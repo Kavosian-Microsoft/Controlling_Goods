@@ -30,6 +30,7 @@
         {
             this.dgvColors = new System.Windows.Forms.DataGridView();
             this.EnrtyPanel = new System.Windows.Forms.Panel();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.btnReturn = new System.Windows.Forms.Button();
             this.btnAddColor = new System.Windows.Forms.Button();
             this.txtColorName = new System.Windows.Forms.TextBox();
@@ -40,7 +41,8 @@
             this.editExistingColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnRemove = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtColorID = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvColors)).BeginInit();
             this.EnrtyPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -55,29 +57,44 @@
             this.dgvColors.Location = new System.Drawing.Point(0, 24);
             this.dgvColors.Name = "dgvColors";
             this.dgvColors.ReadOnly = true;
-            this.dgvColors.Size = new System.Drawing.Size(384, 150);
+            this.dgvColors.Size = new System.Drawing.Size(384, 181);
             this.dgvColors.TabIndex = 0;
             this.dgvColors.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvColors_CellClick);
             // 
             // EnrtyPanel
             // 
+            this.EnrtyPanel.Controls.Add(this.txtColorID);
+            this.EnrtyPanel.Controls.Add(this.label2);
             this.EnrtyPanel.Controls.Add(this.btnRemove);
             this.EnrtyPanel.Controls.Add(this.btnReturn);
             this.EnrtyPanel.Controls.Add(this.btnAddColor);
             this.EnrtyPanel.Controls.Add(this.txtColorName);
             this.EnrtyPanel.Controls.Add(this.label1);
-            this.EnrtyPanel.Location = new System.Drawing.Point(0, 156);
+            this.EnrtyPanel.Location = new System.Drawing.Point(0, 211);
             this.EnrtyPanel.Name = "EnrtyPanel";
-            this.EnrtyPanel.Size = new System.Drawing.Size(384, 100);
+            this.EnrtyPanel.Size = new System.Drawing.Size(384, 142);
             this.EnrtyPanel.TabIndex = 1;
             this.EnrtyPanel.Visible = false;
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.BackColor = System.Drawing.Color.Red;
+            this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemove.ForeColor = System.Drawing.Color.DarkOrange;
+            this.btnRemove.Location = new System.Drawing.Point(138, 102);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(114, 34);
+            this.btnRemove.TabIndex = 3;
+            this.btnRemove.Text = "Remove Color";
+            this.btnRemove.UseVisualStyleBackColor = false;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnReturn
             // 
             this.btnReturn.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReturn.ForeColor = System.Drawing.Color.Red;
-            this.btnReturn.Location = new System.Drawing.Point(255, 59);
+            this.btnReturn.Location = new System.Drawing.Point(258, 102);
             this.btnReturn.Name = "btnReturn";
             this.btnReturn.Size = new System.Drawing.Size(114, 34);
             this.btnReturn.TabIndex = 4;
@@ -90,7 +107,7 @@
             this.btnAddColor.BackColor = System.Drawing.Color.Lime;
             this.btnAddColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddColor.ForeColor = System.Drawing.Color.DarkRed;
-            this.btnAddColor.Location = new System.Drawing.Point(15, 59);
+            this.btnAddColor.Location = new System.Drawing.Point(18, 102);
             this.btnAddColor.Name = "btnAddColor";
             this.btnAddColor.Size = new System.Drawing.Size(114, 34);
             this.btnAddColor.TabIndex = 2;
@@ -100,7 +117,7 @@
             // 
             // txtColorName
             // 
-            this.txtColorName.Location = new System.Drawing.Point(120, 13);
+            this.txtColorName.Location = new System.Drawing.Point(119, 53);
             this.txtColorName.Name = "txtColorName";
             this.txtColorName.Size = new System.Drawing.Size(261, 33);
             this.txtColorName.TabIndex = 1;
@@ -108,7 +125,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(-1, 16);
+            this.label1.Location = new System.Drawing.Point(2, 56);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 26);
             this.label1.TabIndex = 4;
@@ -161,23 +178,29 @@
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // btnRemove
+            // label2
             // 
-            this.btnRemove.BackColor = System.Drawing.Color.Red;
-            this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRemove.ForeColor = System.Drawing.Color.DarkOrange;
-            this.btnRemove.Location = new System.Drawing.Point(135, 59);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(114, 34);
-            this.btnRemove.TabIndex = 3;
-            this.btnRemove.Text = "Remove Color";
-            this.btnRemove.UseVisualStyleBackColor = false;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(86, 26);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Color ID:";
+            // 
+            // txtColorID
+            // 
+            this.txtColorID.Location = new System.Drawing.Point(119, 9);
+            this.txtColorID.Name = "txtColorID";
+            this.txtColorID.ReadOnly = true;
+            this.txtColorID.Size = new System.Drawing.Size(100, 33);
+            this.txtColorID.TabIndex = 6;
+            this.txtColorID.TabStop = false;
             // 
             // FRMProductColor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 26F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 261);
+            this.ClientSize = new System.Drawing.Size(384, 361);
             this.ControlBox = false;
             this.Controls.Add(this.EnrtyPanel);
             this.Controls.Add(this.dgvColors);
@@ -213,5 +236,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.TextBox txtColorID;
+        private System.Windows.Forms.Label label2;
     }
 }

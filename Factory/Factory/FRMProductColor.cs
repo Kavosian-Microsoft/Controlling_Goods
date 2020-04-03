@@ -30,7 +30,7 @@ namespace Factory
         {
             // TODO: This line of code loads data into the 'factory_DataBaseDataSet.tbl_Color' table. You can move, or remove it, as needed.
             //this.tbl_ColorTableAdapter.Fill(this.factory_DataBaseDataSet.tbl_Color);
-            Load_List_of_Product();
+            Load_List_of_Color();
         }//FRMProductColor_Load
         //-----------------------------------------------------------------------------------------
         private void btnAddColor_Click(object sender, EventArgs e)
@@ -54,7 +54,7 @@ namespace Factory
                         if (save_product_to_DataBase())
                         {
                             strMessage = "One record is added to database";
-                            Load_List_of_Product();
+                            Load_List_of_Color();
                             MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                             clear_entery();
                         }//if one record is added to data base
@@ -64,7 +64,7 @@ namespace Factory
                         if (update_product_in_DataBase())
                         {
                             strMessage = "One record is updated in database";
-                            Load_List_of_Product();                            
+                            Load_List_of_Color();
                             MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                             clear_entery();
                         }//if one record is added to data base
@@ -105,7 +105,8 @@ namespace Factory
 
             return result;
         }//check_color_existanse
-        private void clear_entery() {
+        private void clear_entery()
+        {
             txtColorName.Clear();
         }//clear_entery();
         bool save_product_to_DataBase()
@@ -113,8 +114,8 @@ namespace Factory
             bool result = false;
             try
             {
-                string cn = txtColorName.Text.Trim();                
-                string srtSQL = string.Format("Insert into tbl_Color (ColorName) values ('{0}')",cn);
+                string cn = txtColorName.Text.Trim();
+                string srtSQL = string.Format("Insert into tbl_Color (ColorName) values ('{0}')", cn);
                 SqlConnection sqlcon = new SqlConnection(strConnection);
                 sqlcon.Open();
                 SqlCommand sqlcmd = new SqlCommand(srtSQL, sqlcon);
@@ -143,7 +144,7 @@ namespace Factory
             {
                 string cn = txtColorName.Text.Trim();
                 int cid = int.Parse(dgvColors.CurrentRow.Cells[0].Value.ToString());
-                string srtSQL = string.Format("Update tbl_Color set ColorName='{0}' where ColorID={1}", cn,cid);
+                string srtSQL = string.Format("Update tbl_Color set ColorName='{0}' where ColorID={1}", cn, cid);
                 SqlConnection sqlcon = new SqlConnection(strConnection);
                 sqlcon.Open();
                 SqlCommand sqlcmd = new SqlCommand(srtSQL, sqlcon);
@@ -167,6 +168,7 @@ namespace Factory
 
         private void dgvColors_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            txtColorID.Text   = dgvColors.CurrentRow.Cells[0].Value.ToString();
             txtColorName.Text = dgvColors.CurrentRow.Cells[1].Value.ToString();
         }//dgvColors_CellClick
 
@@ -193,11 +195,11 @@ namespace Factory
             EnrtyPanel.Visible = true;
             currentoperation = DataBaseOperation.Update;
         }//editExistingColorToolStripMenuItem_Click
-        private void Load_List_of_Product()
+        private void Load_List_of_Color()
         {
             try
             {
-                //string strsql = "Select * from tbl_product";
+
                 string strsql = "select * from tbl_Color";
                 SqlConnection sqlCon = new SqlConnection(strConnection);
                 sqlCon.Open();
@@ -215,6 +217,98 @@ namespace Factory
                 MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }//catch
         }//Load_List_of_Product
+        //-----------------------------------------------------------------------------------------
+        bool check_data_entery_for_product()
+        {
+            bool result = false;
+            if (txtColorName.Text.Length > 0)
+            {
+                result = true;
+
+            }//if ColorName is entered
+            return result;
+        }//check_data_entery_for_product
+        //-----------------------------------------------------------------------------------------
+        private bool remove_record(int CID)
+        {
+            bool result = false;
+            string strsql = string.Format("Delete from tbl_Color where ColorID={0}", CID);
+            try
+            {
+                SqlConnection sqlcon = new SqlConnection(strConnection);
+                sqlcon.Open();
+                SqlCommand sqlcmd = new SqlCommand(strsql, sqlcon);
+                int r = sqlcmd.ExecuteNonQuery();
+                if (r > 0)
+                {
+                    result = true;
+                }//if removed 
+                sqlcon.Close();
+            }//try
+            catch (Exception ex)
+            {
+                string strTitle, strMessage;
+                strTitle = Properties.Resources.ProgramTitle;
+                strMessage = "An exception has occured please contact the system administrator and inform exception No. 4 ";
+                strMessage += "\nAnd following message \n " + ex.Message;
+                MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }//catch
+            return result;
+        }//remove_record
+        //-----------------------------------------------------------------------------------------
+        private bool check_color_dependency(int colorid) {
+            bool result = false;
+            string strsql;
+            SqlConnection sqlcon = new SqlConnection(strConnection);
+            sqlcon.Open();
+            strsql = string.Format("select count(ProductID) from tbl_product where ProductColor={0}",colorid);
+            SqlCommand sqlcmd = new SqlCommand(strsql, sqlcon);
+            int r =(int)sqlcmd.ExecuteScalar();
+            if (r > 0) {
+                result = true;
+            }//if color is used
+            return result;               
+        }//check_color_dependency
+        //-----------------------------------------------------------------------------------------
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            string strTitle, strMessage;
+            strTitle = Properties.Resources.ProgramTitle;
+            strMessage = "";
+            if (check_data_entery_for_product())
+            {
+                DialogResult res;
+                strMessage = "Are you sure for removing the selected record";
+                res = MessageBox.Show(strMessage, strTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res == DialogResult.Yes)
+                {
+                    if (check_color_dependency(int.Parse(txtColorID.Text.Trim()))) {
+                        strMessage = "This color is used in definig products, first modify the product";
+                        MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }//if there is color dependency
+                    else {
+                        if (remove_record(int.Parse(txtColorID.Text.Trim())))
+                        {
+                            Load_List_of_Color();
+                            clear_entery();
+                            strMessage = "One record is removed";
+                            MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }//if it is OK to remove record 
+                        else
+                        {
+                            strMessage = "The record is not removed, check again please";
+                            MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }//else if removing was not completed 
+                    }//else if there is no color dependency
+                }//if yes is pressesd                
+            }//if All data fields are filled in 
+            else
+            {
+                strMessage = "Please select a record";
+                MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }//else if there is fata missing
+
+        }//btnRemove
         //---------------------------------------------------------------------
     }//FRMProductColor : Form
 }//Factory
