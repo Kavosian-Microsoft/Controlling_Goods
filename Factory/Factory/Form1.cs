@@ -364,7 +364,9 @@ namespace Factory
 
         private void systemUsersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            UserManagement frm = new UserManagement();
+            frm.strConnection = strConnection;
+            frm.ShowDialog();
         }//systemUsersToolStripMenuItem_Click
     }//Form
 }//Factory
