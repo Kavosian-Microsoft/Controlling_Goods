@@ -48,7 +48,7 @@ namespace Factory
             if (check_form_entry()) {                
                 SqlConnection sqlcon = new SqlConnection(strcon);
                 sqlcon.Open();
-                string strsql = string.Format("select * from tbl_user where username='{0}' and userpassword='{1}'", txtUserName.Text.Trim(),txtPassword.Text.Trim());
+                string strsql = string.Format("select * from tbl_user where username='{0}' and userpassword='{1}' and userIsActive='True'", txtUserName.Text.Trim(),txtPassword.Text.Trim());
                 SqlDataAdapter da = new SqlDataAdapter(strsql, sqlcon);
                 DataSet ds = new DataSet();
                 da.Fill(ds, "tblUser");
@@ -77,7 +77,7 @@ namespace Factory
                     this.Close();
                 }//if user exists
                 else {
-                    strMessage = "Check data and try again";
+                    strMessage = "Check data and try again, and check if your account is active :-)";
                     MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }//else if username and password are wrong
                 

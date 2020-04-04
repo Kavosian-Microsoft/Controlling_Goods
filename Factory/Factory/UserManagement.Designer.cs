@@ -58,6 +58,7 @@
             this.editUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkISActive = new System.Windows.Forms.CheckBox();
             this.grbUsersList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.grbUserInfor.SuspendLayout();
@@ -88,6 +89,7 @@
             // 
             // grbUserInfor
             // 
+            this.grbUserInfor.Controls.Add(this.chkISActive);
             this.grbUserInfor.Controls.Add(this.txtUserID);
             this.grbUserInfor.Controls.Add(this.label7);
             this.grbUserInfor.Controls.Add(this.btnCancel);
@@ -320,6 +322,16 @@
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // chkISActive
+            // 
+            this.chkISActive.AutoSize = true;
+            this.chkISActive.Location = new System.Drawing.Point(134, 230);
+            this.chkISActive.Name = "chkISActive";
+            this.chkISActive.Size = new System.Drawing.Size(92, 33);
+            this.chkISActive.TabIndex = 16;
+            this.chkISActive.Text = "Active";
+            this.chkISActive.UseVisualStyleBackColor = true;
+            // 
             // UserManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 29F);
@@ -379,5 +391,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox txtUserID;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox chkISActive;
     }
 }
