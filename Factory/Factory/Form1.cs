@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data;
-
+using Factory;
 namespace Factory
 {
     public partial class frmFactory : Form
@@ -14,8 +14,15 @@ namespace Factory
             Update=3,
             Delete=4
         }//DataBaseOperation
+        enum user_Types
+        {
+            Admin = 1,
+            SellsManager = 2,
+            Clerck = 3
+        }//enum
         public string strConnection = "";
         DataBaseOperation currentoperation = DataBaseOperation.none;
+        user_Types _currentusertype;
         //---------------------------------------------------------------------
         public frmFactory()
         {
@@ -41,13 +48,51 @@ namespace Factory
             if (login.LoggegIN) {
                 string strtitle = "";
                 strtitle = Properties.Resources.ProgramTitle + "  UserName:" + login.username + "  User Type :" + login.userType + "  Loging Time:" + login.loginTime;
+                strtitle += " Executable Path:" + Application.ExecutablePath.ToString();
                 this.Text = strtitle;
+                switch (login.userType)
+                {
+                    case "Admin":
+                        _currentusertype = user_Types.Admin;
+                        break;
+                    case "SellsManager":
+                        _currentusertype = user_Types.SellsManager;
+                        break;
+                    case "Clerck":
+                        _currentusertype = user_Types.Clerck;
+                        break;
+                    default:
+                        break;
+                }//switch
+                set_user_privilages();
             }//if user is logged in
+
+
             else {
                 this.Close();
             }//else if login is unseccessful
+            
         }//frmFactory_Load
-        //---------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------
+        private void set_user_privilages() {
+            switch (_currentusertype)
+            {
+                case user_Types.Admin:
+                    break;
+                case user_Types.SellsManager:
+                    systemUsersToolStripMenuItem.Enabled = false;
+                    break;
+                case user_Types.Clerck:
+                    optionsToolStripMenuItem.Enabled = false;
+                    newToolStripMenuItem.Enabled = false;
+                    EditProductToolStripMenuItem.Enabled = false;
+                    RemoveProductToolStripMenuItem.Enabled = false;
+                    break;
+                default:
+                    break;
+            }//switch
+        }//set_user_privilages
+        //------------------------------------------------------------------------------------------
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             currentoperation = DataBaseOperation.Create;
@@ -368,5 +413,10 @@ namespace Factory
             frm.strConnection = strConnection;
             frm.ShowDialog();
         }//systemUsersToolStripMenuItem_Click
+
+        private void SignOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Restart();            
+        }//SignOutToolStripMenuItem_Click
     }//Form
 }//Factory

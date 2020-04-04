@@ -39,7 +39,7 @@
             this.EditProductToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RemoveProductToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SignOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +77,7 @@
             this.txtProductID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbl_ColorTableAdapter = new Factory.Factory_DataBaseDataSetTableAdapters.tbl_ColorTableAdapter();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.grbListItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProduct)).BeginInit();
@@ -108,6 +109,7 @@
             this.EditProductToolStripMenuItem,
             this.RemoveProductToolStripMenuItem,
             this.toolStripSeparator2,
+            this.SignOutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -164,12 +166,12 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(228, 6);
             // 
-            // exitToolStripMenuItem
+            // SignOutToolStripMenuItem
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.SignOutToolStripMenuItem.Name = "SignOutToolStripMenuItem";
+            this.SignOutToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.SignOutToolStripMenuItem.Text = "&Sign out";
+            this.SignOutToolStripMenuItem.Click += new System.EventHandler(this.SignOutToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -255,7 +257,7 @@
             // customizeToolStripMenuItem
             // 
             this.customizeToolStripMenuItem.Name = "customizeToolStripMenuItem";
-            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.customizeToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.customizeToolStripMenuItem.Text = "&Customize";
             // 
             // optionsToolStripMenuItem
@@ -264,20 +266,20 @@
             this.productColorsToolStripMenuItem,
             this.systemUsersToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // productColorsToolStripMenuItem
             // 
             this.productColorsToolStripMenuItem.Name = "productColorsToolStripMenuItem";
-            this.productColorsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.productColorsToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.productColorsToolStripMenuItem.Text = "Product &Colors";
             this.productColorsToolStripMenuItem.Click += new System.EventHandler(this.productColorsToolStripMenuItem_Click);
             // 
             // systemUsersToolStripMenuItem
             // 
             this.systemUsersToolStripMenuItem.Name = "systemUsersToolStripMenuItem";
-            this.systemUsersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.systemUsersToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.systemUsersToolStripMenuItem.Text = "System &Users";
             this.systemUsersToolStripMenuItem.Click += new System.EventHandler(this.systemUsersToolStripMenuItem_Click);
             // 
@@ -485,6 +487,13 @@
             // 
             this.tbl_ColorTableAdapter.ClearBeforeFill = true;
             // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // frmFactory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -523,8 +532,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem EditProductToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem RemoveProductToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;        
+        private System.Windows.Forms.ToolStripMenuItem SignOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
@@ -562,6 +571,7 @@
         private Factory_DataBaseDataSet factory_DataBaseDataSet;
         private System.Windows.Forms.BindingSource tblColorBindingSource;
         private Factory_DataBaseDataSetTableAdapters.tbl_ColorTableAdapter tbl_ColorTableAdapter;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 

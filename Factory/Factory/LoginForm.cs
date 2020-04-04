@@ -63,7 +63,7 @@ namespace Factory
                             userType = "Admin";
                             break;
                         case "2":
-                            userType = "Sells manager";
+                            userType = "SellsManager";
                             break;
                         case "3":
                             userType = "Clerck";
